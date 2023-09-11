@@ -11,6 +11,5 @@ assert title == "Web form"
 driver.implicitly_wait(0.5)
 
 text_box = driver.find_element(by=By.NAME, value="my-text")
-submit_button = driver.find_element(by=By.CSS_SELECTOR, value="button");
+submit_button = driver.find_element(by=By.CSS_SELECTOR, value="button").click()
 
-driver.implicitly_wait(999)
