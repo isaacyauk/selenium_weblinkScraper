@@ -3,13 +3,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+search_term = input("Enter desired search term: ")
 
 driver = webdriver.Chrome()
+#driver = webdriver.Edge()
+
 
 driver.get("https://google.com")
 
 # Search Query and "ENTER" keypress
-driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys("Dogs")
+driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys(search_term)
 driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys(Keys.ENTER)
 
 wait = WebDriverWait(driver, 10)
