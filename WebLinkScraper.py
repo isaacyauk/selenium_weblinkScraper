@@ -10,9 +10,6 @@ search_term = input("Enter desired search term: ")
 driver = webdriver.Chrome()
 
 
-# driver = webdriver.Edge()
-
-
 # Define how many times to scroll (you can adjust this number)
 def scrollToResultsUntil(duration, times):
     for i in range(times):
@@ -31,19 +28,6 @@ def scrollToResultsUntil(duration, times):
             break
 
 
-
-
-
-    # Scroll to the bottom of the page
-    # for i in range(times):
-    #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    #     time.sleep(2)
-    #
-    #     if 6 == times:
-    #         wait.until(EC.element_to_be_clickable((By.XPATH, "//div//span[contains(., 'More results')]")))
-    #
-
-
 driver.get("https://google.com")
 
 # Search Query and "ENTER" keypress
@@ -53,9 +37,6 @@ driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys(Keys.ENTER)
 wait = WebDriverWait(driver, 10)
 searchResults = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//div[@role='main']//span//a[@jsname]"))) # USE THE .HREF javascript element here!!
 
-# location of weblink
-# searchResults = driver.find_elements(by=By.XPATH, value="//div//cite")
-#scrollToMoreResults()
 # this loop looks at all the "Cite" results on the DOM and checks for if it is a link or not.
 
 scrollToResultsUntil(2, 200)
@@ -68,8 +49,5 @@ for result in searchResults:
         print(link)
     # thing = driver.find_element(by=By.XPATH, value="//cite").text
 
+print("end of scrape")
 
-
-print("end of thing")
-
-# thing = driver.find_element(by=By.XPATH, value=f"(//cite)[{i}]").text
