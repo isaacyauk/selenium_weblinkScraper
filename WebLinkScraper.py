@@ -11,21 +11,21 @@ driver = webdriver.Chrome()
 
 
 # Define how many times to scroll (you can adjust this number)
-def scrollToResultsUntil(duration, times):
-    for i in range(times):
+def scrollToResultsUntil(duration):
+    # Find the element you want to scroll to
+    element = driver.find_element(by=By.XPATH, value="//span[text()='More results']")
+    start_time = time.time()
+
+    while time.time() - start_time < duration:
+        # Execute JavaScript to scroll the page down to the element
+        driver.execute_script("arguments[0].scrollIntoView();", element)
 
         try:
-            # Find the element you want to scroll to
-            element = driver.find_element(by=By.XPATH, value="//span[text()='More results']")
-            start_time = time.time()
-
-            while time.time() - start_time < duration:
-                # Execute JavaScript to scroll the page down to the element
-                driver.execute_script("arguments[0].scrollIntoView();", element)
-
             element.click()
         except:
-            break
+            continue
+
+
 
 
 driver.get("https://google.com")
@@ -34,20 +34,22 @@ driver.get("https://google.com")
 driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys(search_term)
 driver.find_element(by=By.CSS_SELECTOR, value="#APjFqb").send_keys(Keys.ENTER)
 
-wait = WebDriverWait(driver, 10)
-searchResults = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//div[@role='main']//span//a[@jsname]"))) # USE THE .HREF javascript element here!!
+scrollToResultsUntil(30)
 
+
+links = driver.find_elements(by=By.XPATH, value="//span//a[@jsname]")
 # this loop looks at all the "Cite" results on the DOM and checks for if it is a link or not.
+for link in links:
+    href = link.get_attribute('href')
+    print(href)
 
-scrollToResultsUntil(2, 200)
-
-for result in searchResults:
-    link = result.text
-
-    # This is the equivalent of "contains" in python.
-    if "http" in link:
-        print(link)
-    # thing = driver.find_element(by=By.XPATH, value="//cite").text
+# for result in searchResults:
+#     link = result.text
+#
+#     # This is the equivalent of "contains" in python.
+#     if "http" in link:
+#         print(link)
+#     # thing = driver.find_element(by=By.XPATH, value="//cite").text
 
 print("end of scrape")
 
