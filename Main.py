@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from ChromeDriverMethods import ChromeDriverMethods
-import time
 
 search_term = input("Enter desired search term: ")
 
